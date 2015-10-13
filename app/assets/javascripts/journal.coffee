@@ -1,1 +1,2 @@
-#=  require_tree ./journal
+#= require formagic/inputs/markdown
+#= require_tree ./journal

@@ -11,8 +11,8 @@ class @JournalPages
       })
 
       formSchema:
-        title:         { type: 'string',   placeholder: 'Page Title' }
-        body_markdown: { type: 'markdown', htmlFieldName: 'body_html', placeholder: 'Content' }
         hidden:        { type: 'switch',   label: 'Hidden' }
+        title:         { type: 'string',   placeholder: 'Page Title' }
+        body_markdown: { type: 'markdown2', htmlFieldName: 'body_html', placeholder: 'Content' }
 
     return config

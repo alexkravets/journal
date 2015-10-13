@@ -23,17 +23,28 @@ class JournalPost
   ## Validation
   validates_presence_of :title
 
-
-  ## Search & slug
+  ## Search & Slug
   search_in :title
   slug :title
 
+  ## Scopes
+  default_scope -> { desc(:published_at) }
 
   ## Index
-  index({ int_id: 1 })
-
+  index int_id: 1
+  index published_at: -1
 
   ## Helpers
+  def hex
+    int_id.to_s(16)
+  end
+
+
+  def excerpt_html
+    body_html.split('<!-- -->').first || ''
+  end
+
+
   def _list_item_title
     title
   end
@@ -41,11 +52,6 @@ class JournalPost
 
   def _list_item_subtitle
     published_at
-  end
-
-
-  def hex
-    int_id.to_s(16)
   end
 
 end

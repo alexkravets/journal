@@ -1,6 +1,6 @@
 class JournalPostsController < ApplicationController
   def index
-    @posts = JournalPost.all
+    @posts = JournalPost.not_hidden
   end
 
 

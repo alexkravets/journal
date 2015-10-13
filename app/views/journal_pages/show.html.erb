@@ -1,14 +1,14 @@
 <% set_meta_tags  :title => @page.title %>
 
-<article class='page rhythm'>
-  <header class='page-header'>
+<article class='journal-page'>
+  <header class='journal-page-header'>
     <h1><%= @page.title %></h1>
     <nav>
       <%= journal_page_breadcrumbs(@page, '/') %>
     </nav>
   </header>
 
-  <section class='page-body'>
+  <section class='journal-page-body'>
     <%= @page.body_html.html_safe %>
   </section>
 </article>

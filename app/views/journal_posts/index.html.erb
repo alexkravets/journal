@@ -1,3 +1,7 @@
-<% @posts.each do |p| %>
-  <%= render partial: 'post', locals: { post: p } %>
-<% end %>
+<article class='journal-page'>
+  <% @posts.each do |p| %>
+    <section class='journal-index-item'>
+      <%= render partial: 'post', locals: { post: p, body: p.excerpt_html } %>
+    </section>
+  <% end %>
+</article>

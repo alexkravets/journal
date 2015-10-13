@@ -18,7 +18,7 @@ class JournalPostsController < ApplicationController
   private
 
     def post_by_int_id
-      int_id = params[:hex].to_i
+      int_id = params[:hex].to_i(16)
       JournalPost.not_hidden.find_by(int_id: int_id)
     end
 

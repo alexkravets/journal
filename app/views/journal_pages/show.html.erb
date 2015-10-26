@@ -1,14 +1,5 @@
 <% set_meta_tags  :title => @page.title %>
 
 <article class='journal-page'>
-  <header class='journal-page-header'>
-    <h1><%= @page.title %></h1>
-    <nav>
-      <%= journal_page_breadcrumbs(@page, '/') %>
-    </nav>
-  </header>
-
-  <section class='journal-page-body'>
-    <%= @page.body_html.html_safe %>
-  </section>
+  <%= render partial: 'page', locals: { page: @page } %>
 </article>

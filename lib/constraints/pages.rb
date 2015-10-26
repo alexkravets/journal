@@ -3,7 +3,7 @@ module Constraints
 
     def self.matches?(request)
       begin
-        JournalPage.find(request.params[:slug])
+        JournalPage.not_hidden.find(request.params[:slug])
 
       rescue
         false

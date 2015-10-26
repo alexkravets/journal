@@ -1,5 +1,5 @@
 class JournalPagesController < ApplicationController
   def show
-    @page = JournalPage.find(params[:slug])
+    @page = JournalPage.not_hidden.find(params[:slug])
   end
 end

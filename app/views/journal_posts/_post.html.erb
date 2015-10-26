@@ -5,12 +5,9 @@
     <% end %>
   </h1>
 
-  <nav class='journal-breadcrumbs'>
-    <%= journal_post_breadcrumbs(post, '/') %>
-  </nav>
-
   <div class='journal-page-meta'>
-    <span class='journal-page-published-at' data-datetime='<%= post.published_at %>'></span>
+    <nav><%= journal_post_breadcrumbs(post, '/') %></nav>
+    <time datetime='<%= post.published_at %>'><%= post.published_at %></span>
   </div>
 </header>
 
@@ -20,4 +17,8 @@
 
 <footer class='journal-page-footer'>
   <%= link_to 'Read more', journal_post_path(post.hex, post.slug), class: 'journal-permalink' %>
+
+  <% if @disqus_shortname %>
+    <%= link_to 'Show comments', '#', class: 'journal-show-comments' %>
+  <% end %>
 </footer>

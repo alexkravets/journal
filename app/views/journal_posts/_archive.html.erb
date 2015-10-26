@@ -1,0 +1,15 @@
+<section class='journal-archive'>
+  <ul class='journal-archive-index'>
+    <% posts.each do |post| %>
+      <% unless post == except_post %>
+        <li class='journal-archive-item'>
+          <%= link_to journal_post_path(post.hex, post.slug) do %>
+            <%= post.title %>
+          <% end %>
+
+          <time datetime='<%= post.published_at %>'><%= post.published_at %></time>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</section>

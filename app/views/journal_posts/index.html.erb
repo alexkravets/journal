@@ -1,7 +1,8 @@
 <article class='journal-page'>
-  <% @posts.each do |p| %>
-    <section class='journal-index-item'>
-      <%= render partial: 'post', locals: { post: p, body: p.excerpt_html } %>
-    </section>
-  <% end %>
+  <section class='journal-index-item'>
+    <% featured_post = @posts.first %>
+    <%= render partial: 'post', locals: { post: featured_post, body: featured_post.excerpt_html } %>
+  </section>
 </article>
+
+<%= render partial: 'archive', locals: { posts: @posts, except_post: featured_post } %>

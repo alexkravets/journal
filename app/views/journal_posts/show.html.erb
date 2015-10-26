@@ -5,7 +5,9 @@
 </article>
 
 <% if @disqus_shortname %>
-  <div class='journal-comments'>
-    <%= render partial: 'disqus' %>
+  <div class='journal-comments' style='display:none;'>
+    <div id='disqus_thread' class='journal-disqus' data-shortname='<%= @disqus_shortname %>'></div>
   </div>
 <% end %>
+
+<%= render partial: 'archive', locals: { posts: @posts, except_post: @post } %>

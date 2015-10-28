@@ -1,5 +1,5 @@
 class @JournalPosts
-  constructor: (menuTitle='Journal', title='Posts', apiPath='/admin') ->
+  constructor: (menuTitle='Journal', title='Categories', apiPath='/admin') ->
     config =
       menuTitle: menuTitle
       title:     title
@@ -10,7 +10,7 @@ class @JournalPosts
 
       items:
         all_posts:
-          title: 'All Posts'
+          title: 'All'
 
           arrayStore: new RailsArrayStore({
             resource:    'journal_post'
@@ -29,9 +29,8 @@ class @JournalPosts
             settings:
               type: 'group'
               inputs:
-                hidden:        { type: 'switch',   label: 'Draft', default: true }
-                published_at:  { type: 'datetime', label: 'Publish At' }
-                _slug:         { type: 'string',   label: 'Permalink' }
+                hidden:       { type: 'switch',   label: 'Draft', default: true }
+                published_at: { type: 'datetime', label: 'Publish At' }
 
           showWithParent: true
           fullsizeView:   true
@@ -41,13 +40,11 @@ class @JournalPosts
             settings: 'Settings'
 
           onItemRender: (item) ->
-            today    = new Date()
-            tzOffset = today.getTimezoneOffset() * -1
+            renderJournalPostItem(item)
 
-            m = moment(item.object.published_at).utcOffset(tzOffset)
-            if m.isValid()
-              format = if today.getFullYear() == m.year() then 'MMM D hh:mm' else 'MMM D, YYYY hh:mm'
-              published_at = m.format(format)
-              item.$subtitle.html(published_at)
+          onViewShow: (view) ->
+            if view.object
+              hex = view.object.hex
+              addPreviewHeaderButton(view, "/#{ hex }/preview", "/#{ hex }")
 
     return config

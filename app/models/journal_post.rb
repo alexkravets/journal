@@ -49,9 +49,4 @@ class JournalPost
     title
   end
 
-
-  def _list_item_subtitle
-    published_at
-  end
-
 end

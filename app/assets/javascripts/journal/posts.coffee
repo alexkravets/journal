@@ -29,14 +29,16 @@ class @JournalPosts
             settings:
               type: 'group'
               inputs:
-                hidden:       { type: 'switch',   label: 'Draft', default: true }
+                hidden: { type: 'switch', label: 'Draft', default: true }
+                slug: new AntsSlugInput()
                 published_at: { type: 'datetime', label: 'Publish At' }
+                meta: new AntsMetaGroup()
 
           showWithParent: true
           fullsizeView:   true
 
           viewTabs:
-            editor:   'Post'
+            editor: 'Content'
             settings: 'Settings'
 
           onItemRender: (item) ->

@@ -3,7 +3,7 @@
     <% posts.each do |post| %>
       <% unless post == except_post %>
         <li class='journal-archive-item'>
-          <%= link_to journal_post_path(post.hex, post.slug) do %>
+          <%= link_to show_journal_post_path(post.hex, post.slug) do %>
             <%= post.title %>
           <% end %>
 

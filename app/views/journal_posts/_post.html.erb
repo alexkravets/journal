@@ -1,6 +1,6 @@
 <header class='journal-page-header'>
   <h1>
-    <%= link_to journal_post_path(post.hex, post.slug) do %>
+    <%= link_to show_journal_post_path(post.hex, post.slug) do %>
       <%= post.title %>
     <% end %>
   </h1>
@@ -16,7 +16,7 @@
 </section>
 
 <footer class='journal-page-footer'>
-  <%= link_to 'Read more', journal_post_path(post.hex, post.slug), class: 'journal-permalink' %>
+  <%= link_to 'Read more', show_journal_post_path(post.hex, post.slug), class: 'journal-permalink' %>
 
   <% if @disqus_shortname %>
     <%= link_to 'Show comments', '#', class: 'journal-show-comments' %>

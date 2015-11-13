@@ -1,4 +1,10 @@
-<% set_meta_tags  :title => @post.title %>
+<% set_meta_tags title: @post.meta_title,
+                 description: @post.meta_description,
+                 keywords: @post.meta_keywords,
+                 og: { title: @post.meta_title,
+                       description: @post.meta_description,
+                       type: 'article',
+                       image: @post.opengraph_image_url } %>
 
 <article class='journal-page'>
   <%= render partial: 'post', locals: { post: @post, body: @post.body_html } %>

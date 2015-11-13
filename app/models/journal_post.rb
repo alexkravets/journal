@@ -8,7 +8,7 @@ class JournalPost
   include Ants::Id
   include Ants::Slug
   include Ants::Hideable
-
+  include Ants::Meta
 
   ## Attributes
   field :title
@@ -39,14 +39,33 @@ class JournalPost
     int_id.to_s(16)
   end
 
-
   def excerpt_html
     body_html.split('<!-- -->').first || ''
   end
 
+  def excerpt_text
+    ActionController::Base.helpers.strip_tags(excerpt_html).
+      gsub("\n", "").
+      gsub("\r", "")
+  end
+
+  def meta_title
+    _meta_title.presence || title
+  end
+
+  def meta_description
+    _meta_description.presence || excerpt_text
+  end
+
+  def meta_keywords
+    _meta_keywords
+  end
+
+  def opengraph_image_url
+    _opengraph_image_url
+  end
 
   def _list_item_title
     title
   end
-
 end

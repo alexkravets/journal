@@ -3,8 +3,11 @@ module Constraints
 
     def self.matches?(request)
       begin
-        JournalPage.not_hidden.find(request.params[:slug])
-
+        if request.path.end_with? "/preview"
+          JournalPage.find(request.params[:slug])
+        else
+          JournalPage.not_hidden.find(request.params[:slug])
+        end
       rescue
         false
 

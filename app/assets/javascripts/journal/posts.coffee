@@ -3,7 +3,7 @@ class @JournalPosts
     hex = view.object.hex
     addPreviewHeaderButton(view, "/#{ hex }/preview", "/#{ hex }")
 
-  constructor: (menuTitle='Journal', title='Categories', apiPath='/admin') ->
+  constructor: (menuTitle='Posts', title='Categories', apiPath='/admin') ->
     config =
       menuTitle: menuTitle
       menuIcon: 'pencil'

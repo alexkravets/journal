@@ -58,11 +58,11 @@ class JournalPost
   end
 
   def meta_keywords
-    _meta_keywords
+    _meta_keywords.presence
   end
 
   def opengraph_image_url
-    _opengraph_image_url
+    _opengraph_image_url.presence
   end
 
   def _list_item_title

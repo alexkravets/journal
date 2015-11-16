@@ -1,8 +1,13 @@
 class @JournalPosts
+  _add_preview_button: (view) ->
+    hex = view.object.hex
+    addPreviewHeaderButton(view, "/#{ hex }/preview", "/#{ hex }")
+
   constructor: (menuTitle='Journal', title='Categories', apiPath='/admin') ->
     config =
       menuTitle: menuTitle
-      title:     title
+      menuIcon: 'pencil'
+      title: title
 
       onModuleInit: (module) ->
         if module.chr.isDesktop()
@@ -24,8 +29,15 @@ class @JournalPosts
             editor:
               type: 'group'
               inputs:
-                title:         { type: 'string',   placeholder: 'Title' }
-                body_markdown: { type: 'markdown', label: 'Content', htmlFieldName: 'body_html', placeholder: 'Content' }
+                title:
+                  type: 'string'
+                  placeholder: 'Title'
+                body_markdown:
+                  type: 'markdown'
+                  label: 'Content'
+                  htmlFieldName: 'body_html'
+                  placeholder: 'Content'
+
             settings:
               type: 'group'
               inputs:
@@ -44,9 +56,8 @@ class @JournalPosts
           onItemRender: (item) ->
             renderJournalPostItem(item)
 
-          onViewShow: (view) ->
+          onViewShow: (view) =>
             if view.object
-              hex = view.object.hex
-              addPreviewHeaderButton(view, "/#{ hex }/preview", "/#{ hex }")
+              @_add_preview_button(view)
 
     return config

@@ -14,7 +14,7 @@ class JournalPostsController < ApplicationController
   def preview
     @post  = post_by_int_id
     @posts = JournalPost.not_hidden
-    render 'journal_posts/show'
+    render "journal_posts/show"
   end
 
   private

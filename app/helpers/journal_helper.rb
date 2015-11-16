@@ -17,4 +17,11 @@ module JournalHelper
       ''
     end
   end
+
+  def journal_absolute_url(url)
+    if url && ! url.include?('//')
+      host = ENV.fetch("HOST")
+      "http://#{host}#{url}"
+    end
+  end
 end

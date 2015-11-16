@@ -1,6 +1,11 @@
 class @JournalPages
+  _add_preview_button: (view) ->
+    slug = view.object.slug
+    addPreviewHeaderButton(view, "/#{ slug }/preview", "/#{ slug }")
+
   constructor: (title='Pages', apiPath='/admin') ->
     config =
+      menuIcon: 'file-o'
       title: title
 
       arrayStore: new RailsArrayStore({
@@ -36,9 +41,8 @@ class @JournalPages
             slug: new AntsSlugInput()
             meta: new AntsMetaGroup()
 
-      onViewShow: (view) ->
+      onViewShow: (view) =>
         if view.object
-          slug = view.object.slug
-          addPreviewHeaderButton(view, "/#{ slug }/preview", "/#{ slug }")
+          @_add_preview_button(view)
 
     return config

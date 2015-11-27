@@ -1,6 +1,5 @@
 module Constraints
   class JournalPages
-
     def self.matches?(request)
       begin
         if request.path.end_with? "/preview"
@@ -10,9 +9,7 @@ module Constraints
         end
       rescue
         false
-
       end
     end
-
   end
 end

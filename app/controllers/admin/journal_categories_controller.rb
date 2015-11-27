@@ -1,14 +1,12 @@
 module Admin
-  class JournalPostsController < Admin::BaseController
+  class JournalCategoriesController < Admin::BaseController
     mongosteen
 
-    has_scope :by_category
-
-    json_config methods: %w(hex slug sorted_categories),
+    json_config methods: %w(slug),
                 actions: {
                   index: {
                     except: %w(body_markdown body_html),
-                    methods: %w(hex slug)
+                    methods: %w(slug)
                   }
                 }
   end

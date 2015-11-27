@@ -1,5 +1,5 @@
 class JournalPagesController < ApplicationController
-  before_action :authenticate_admin!, only: %w( preview )
+  before_action :authenticate_admin_user!, only: %w( preview )
 
   def show
     @page = JournalPage.not_hidden.find(params[:slug])

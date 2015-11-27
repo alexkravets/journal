@@ -1,63 +1,82 @@
 class @JournalPosts
-  _add_preview_button: (view) ->
-    hex = view.object.hex
-    addPreviewHeaderButton(view, "/#{ hex }/preview", "/#{ hex }")
-
-  constructor: (menuTitle='Posts', title='Categories', apiPath='/admin') ->
+  constructor: (menuTitle="Posts", title="Categories", @apiPath="/admin") ->
     config =
       menuTitle: menuTitle
-      menuIcon: 'pencil'
+      menuIcon: "pencil"
+
       title: title
 
-      onModuleInit: (module) ->
-        if module.chr.isDesktop()
-          module.chr.$mainMenu.find('.menu-journal').attr 'href', '#/journal/all_posts'
+      arrayStore: new RailsArrayStore({
+        resource: "journal_category"
+        path: "#{ @apiPath }/journal_categories"
+        orderable: { positionFieldName: "_position" }
+      })
+
+      formSchema:
+        title: { type: "string" }
 
       items:
-        all_posts:
-          title: 'All'
+        all_posts: @_posts_config()
 
-          arrayStore: new RailsArrayStore({
-            resource:    'journal_post'
-            path:        "#{ apiPath }/journal_posts"
-            sortBy:      'published_at'
-            sortReverse: true
-            searchable:  true
-          })
+    new ModuleCategories(config, 'by_category', => @_posts_config())
 
-          formSchema:
-            editor:
-              type: 'group'
-              inputs:
-                title:
-                  type: 'string'
-                  placeholder: 'Title'
-                body_markdown:
-                  type: 'markdown'
-                  label: 'Content'
-                  htmlFieldName: 'body_html'
-                  placeholder: 'Content'
+    return config
 
-            settings:
-              type: 'group'
-              inputs:
-                hidden: { type: 'switch', label: 'Draft', default: true }
-                slug: new AntsSlugInput()
-                published_at: { type: 'datetime', label: 'Publish At' }
-                meta: new AntsMetaGroup()
+  _posts_config: ->
+    config =
+      arrayStore: new RailsArrayStore({
+        resource: "journal_post"
+        path: "#{ @apiPath }/journal_posts"
+        sortBy: "published_at"
+        sortReverse: true
+        searchable: true
+      })
 
-          showWithParent: true
-          fullsizeView:   true
+      formSchema:
+        editor:
+          type: "group"
+          inputs:
+            title:
+              type: "string"
+              placeholder: "Title"
+            body_markdown:
+              type: "markdown"
+              label: "Content"
+              htmlFieldName: "body_html"
+              placeholder: "Content"
 
-          viewTabs:
-            editor: 'Content'
-            settings: 'Settings'
+        settings:
+          type: "group"
+          inputs:
+            hidden:
+              type: "switch"
+              label: "Draft"
+              default: true
+            sorted_categories:
+              label:  'Categories'
+              type:   'select2'
+              target: 'sorted_category_ids'
+              beforeInitialize: (input) -> selectMultiple(input, 'title', '/admin/journal_categories.json')
+              placeholder: 'Select categories'
+            slug: new AntsSlugInput()
+            published_at:
+              type: "datetime"
+              label: "Publish at"
+            meta: new AntsMetaGroup()
 
-          onItemRender: (item) ->
-            renderJournalPostItem(item)
+      showWithParent: true
+      fullsizeView: true
 
-          onViewShow: (view) =>
-            if view.object
-              @_add_preview_button(view)
+      viewTabs:
+        editor: "Content"
+        settings: "Settings"
+
+      onItemRender: (item) ->
+        renderJournalPostItem(item)
+
+      onViewShow: (view) =>
+        if view.object
+          hex = view.object.hex
+          addPreviewHeaderButton(view, "/#{ hex }/preview", "/#{ hex }")
 
     return config

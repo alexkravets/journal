@@ -1,13 +1,4 @@
-<% set_meta_tags title: @page.meta_title,
-                 description: @page.meta_description,
-                 keywords: @page.meta_keywords,
-                 canonical: @site_url + show_journal_page_path(@page),
-                 og: { title: @page.meta_title,
-                       description: @page.meta_description,
-                       url: @site_url + show_journal_page_path(@page),
-                       type: 'article',
-                       image: journal_absolute_url(@page.opengraph_image_url),
-                       updated_time: @page.updated_at.to_i } %>
+<% content_meta_tags @page %>
 
 <article class='journal-page'>
   <%= render partial: 'page', locals: { page: @page } %>

@@ -1,34 +1,24 @@
 require 'autoinc'
 
 class JournalPost
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Search
+  include Ants::Content
+  include Ants::SortedRelations
   include Mongoid::Autoinc
-  include Ants::Id
-  include Ants::Slug
-  include Ants::Hideable
-  include Ants::Meta
 
   ## Attributes
-  field :title
-  field :body_markdown
-  field :body_html
   field :published_at, type: DateTime, default: -> { DateTime.now }
 
   ## Autoinc
   field :int_id, type: Integer
   increments :int_id
 
-  ## Validation
-  validates_presence_of :title
-
-  ## Search & Slug
-  search_in :title
-  slug :title
+  ## Relations
+  has_and_belongs_to_many :categories, class_name: "JournalCategory", inverse_of: :posts, index: true
+  sorted_relations_for :categories
 
   ## Scopes
   default_scope -> { desc(:published_at) }
+  scope :by_category, -> (id) { where(:category_ids.in => [id]) }
 
   ## Index
   index int_id: 1
@@ -43,29 +33,13 @@ class JournalPost
     body_html.split('<!-- -->').first || ''
   end
 
-  def excerpt_text
-    ActionController::Base.helpers.strip_tags(excerpt_html).
-      gsub("\n", "").
-      gsub("\r", "")
+  def canonical_url
+    "#{protocole}#{host}#{path}"
   end
 
-  def meta_title
-    _meta_title.presence || title
-  end
+  protected
 
-  def meta_description
-    _meta_description.presence || excerpt_text
-  end
-
-  def meta_keywords
-    _meta_keywords.presence
-  end
-
-  def opengraph_image_url
-    _opengraph_image_url.presence
-  end
-
-  def _list_item_title
-    title
+  def path
+    @path ||= Rails.application.routes.url_helpers.show_journal_post_path(hex, slug)
   end
 end

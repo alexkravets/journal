@@ -1,6 +1,6 @@
 class JournalPostsController < ApplicationController
   before_filter :set_all_posts, only: %w( index show )
-  before_action :authenticate_admin!, only: %w( preview )
+  before_action :authenticate_admin_user!, only: %w( preview )
 
   def show
     @post = published_post_by_int_id

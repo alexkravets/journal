@@ -1,3 +1,11 @@
+/* Preview ----------------------------------------------------------------- */
+.header .preview {
+  right: 4em;
+  .fa {
+    @include position(relative, null null -2px null);
+  }
+}
+
 /* Desktop ----------------------------------------------------------------- */
 
 @media #{$desktop} {

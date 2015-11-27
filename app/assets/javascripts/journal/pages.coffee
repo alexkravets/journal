@@ -37,7 +37,7 @@ class @JournalPages
           inputs:
             hidden:
               type: 'switch'
-              label: 'Hidden'
+              label: 'Draft'
             slug: new AntsSlugInput()
             meta: new AntsMetaGroup()
 

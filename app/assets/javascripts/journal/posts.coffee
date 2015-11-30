@@ -35,6 +35,7 @@ class @JournalPosts
       formSchema:
         editor:
           type: "group"
+          groupClass: "group-editor"
           inputs:
             title:
               type: "string"
@@ -48,28 +49,39 @@ class @JournalPosts
         settings:
           type: "group"
           inputs:
-            hidden:
-              type: "switch"
-              label: "Draft"
-              default: true
-            sorted_categories:
-              label:  'Categories'
-              type:   'select2'
-              target: 'sorted_category_ids'
-              beforeInitialize: (input) -> selectMultiple(input, 'title', '/admin/journal_categories.json')
-              placeholder: 'Select categories'
-            slug: new AntsSlugInput()
-            published_at:
-              type: "datetime"
-              label: "Publish at"
-            meta: new AntsMetaGroup()
+            general_panel:
+              type: "group"
+              groupClass: "group-panel"
+              title: "General"
+              inputs:
+                hidden:
+                  type: "switch"
+                  label: "Draft"
+                  default: true
+                sorted_categories:
+                  label:  'Categories'
+                  type:   'select2'
+                  target: 'sorted_category_ids'
+                  beforeInitialize: (input) -> selectMultiple(input, 'title', '/admin/journal_categories.json')
+                  placeholder: 'Select categories'
+                published_at:
+                  type: "datetime"
+                  label: "Publish at"
+                slug: new AntsSlugInput()
+
+            seo_panel:
+              type: "group"
+              groupClass: "group-panel"
+              title: "SEO"
+              inputs:
+                meta: new AntsMetaGroup()
 
       showWithParent: true
       fullsizeView: true
 
       viewTabs:
-        editor: "Content"
-        settings: "Settings"
+        editor: "Post"
+        settings: "Options"
 
       onItemRender: (item) ->
         renderJournalPostItem(item)

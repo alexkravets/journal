@@ -16,12 +16,13 @@ class @JournalPages
       })
 
       viewTabs:
-        editor: 'Content'
-        settings: 'Settings'
+        editor: 'Page'
+        settings: 'Options'
 
       formSchema:
         editor:
           type: 'group'
+          groupClass: "group-editor"
           inputs:
             title:
               type: 'string'
@@ -35,11 +36,22 @@ class @JournalPages
         settings:
           type: 'group'
           inputs:
-            hidden:
-              type: 'switch'
-              label: 'Draft'
-            slug: new AntsSlugInput()
-            meta: new AntsMetaGroup()
+            general_panel:
+              type: "group"
+              groupClass: "group-panel"
+              title: "General"
+              inputs:
+                hidden:
+                  type: 'switch'
+                  label: 'Draft'
+                slug: new AntsSlugInput()
+
+            seo_panel:
+              type: "group"
+              groupClass: "group-panel"
+              title: "SEO"
+              inputs:
+                meta: new AntsMetaGroup()
 
       onViewShow: (view) =>
         if view.object

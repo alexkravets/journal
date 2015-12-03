@@ -8,7 +8,7 @@ module Constraints
           JournalPage.not_hidden.find(request.params[:slug])
         end
       rescue
-        false
+       false
       end
     end
   end

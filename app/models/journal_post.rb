@@ -37,9 +37,22 @@ class JournalPost
     "#{protocole}#{host}#{path}"
   end
 
+  def meta_description
+    _meta_description.presence || excerpt_text
+  end
+
   protected
 
   def path
     @path ||= Rails.application.routes.url_helpers.show_journal_post_path(hex, slug)
+  end
+
+  private
+
+  def excerpt_text
+    text = ActionController::Base.helpers.strip_tags(excerpt_html).
+      gsub("\n", "").
+      gsub("\r", "")
+    ActionController::Base.helpers.truncate(text, length: 260, omission: '...')
   end
 end

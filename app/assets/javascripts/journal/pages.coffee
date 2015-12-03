@@ -8,11 +8,13 @@ class @JournalPages
       menuIcon: 'file-o'
       title: title
 
+      fullsizeView: true
+
       arrayStore: new RailsArrayStore({
         resource: 'journal_page'
         path: "#{ apiPath }/journal_pages"
         reorderable: { positionFieldName: '_position' }
-        searchable: true
+        # searchable: true
       })
 
       viewTabs:

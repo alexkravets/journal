@@ -1,4 +1,39 @@
-@import "journal/posts";
-@import "journal/pages";
-@import "journal/view";
-@import "journal/select-many";
+.posts.view-new {
+  .input-_slug {
+    display: none;
+  }
+}
+
+/* Tablet ----------------------------------------------------------------- */
+@media #{$tablet} {
+  .journal .list.list-aside .item:hover {
+    .item-title {
+      color : $positive-color;
+    }
+  }
+}
+
+/* Tablet ----------------------------------------------------------------- */
+@media #{$tablet} {
+  .list.posts,
+  .list.pages {
+    width: initial;
+    background-color: $bg-color;
+
+    .header {
+      background-color: $bg-color;
+    }
+
+    .items {
+      padding-top: 1.5em;
+    }
+
+    .item {
+      @include no-bottom-border;
+      background-color: $white-color;
+      box-shadow: 0 0 1px rgba(0,0,0,0.15);
+      margin: 0 auto;
+      max-width: 44em;
+    }
+  }
+}

@@ -1,20 +1,22 @@
 module JournalHelper
-  def journal_post_breadcrumbs(post, separator)
-    if @site_name.presence
-      [ link_to(@site_name, root_path),
-        link_to(post.hex, journal_post_short_path(post.hex)),
-        link_to(post.slug, show_journal_post_path(post.hex, post.slug)) ].join(separator).html_safe
-    else
-      ''
+  def journal_post_category_links(post)
+    html = ""
+    if post.categories.any?
+      html << "<span class='journal-post-header-categories'>"
+      html << post.categories.collect do |c|
+        link_to(c.title, show_journal_category_path(c.slug))
+      end.join(" ")
+      html << "</span>"
     end
+    html.html_safe
   end
 
-  def journal_page_breadcrumbs(page, separator)
-    if @site_name.presence
-      [ link_to(@site_name, root_path),
-        link_to(page.slug, show_journal_page_path(page)) ].join(separator).html_safe
-    else
-      ''
-    end
+  def journal_post_time(post)
+    time = post.published_at.strftime("%m.%d.%Y")
+    html = """<time datetime='#{post.published_at}'
+          class='journal-post-header-time'>
+  #{time}
+</time>"""
+    html.html_safe
   end
 end

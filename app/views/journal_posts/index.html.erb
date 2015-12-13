@@ -1,8 +1,7 @@
-<article class='journal-page'>
-  <section class='journal-index-item'>
-    <% featured_post = @posts.first %>
-    <%= render partial: 'post', locals: { post: featured_post, body: featured_post.excerpt_html } %>
+<% if @featured && @featured.size > 0 %>
+  <section class='journal-featured-posts'>
+    <%= render partial: 'post', collection: @featured %>
   </section>
-</article>
-
-<%= render partial: 'archive', locals: { posts: @posts, except_post: featured_post } %>
+<% end %>
+<%= render partial: 'post', collection: @posts %>
+<%= paginate @posts %>

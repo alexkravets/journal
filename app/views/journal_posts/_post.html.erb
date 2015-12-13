@@ -1,24 +1,25 @@
-<header class='journal-page-header'>
-  <h1>
-    <%= link_to show_journal_post_path(post.hex, post.slug) do %>
-      <%= post.title %>
+<div class="journal-page">
+  <header class="journal-page-header">
+    <h1>
+      <%= link_to show_journal_post_path(post.hex, post.slug) do %>
+        <%= post.title %>
+      <% end %>
+    </h1>
+    <%= journal_post_time(post) %>
+    <%= journal_post_category_links(post) %>
+  </header>
+
+  <section class="journal-page-body">
+    <% if post.excerpt_html.empty? %>
+      <%= post.body_html.html_safe %>
+    <% else %>
+      <%= post.excerpt_html.html_safe %>
     <% end %>
-  </h1>
 
-  <div class='journal-page-meta'>
-    <nav><%= journal_post_breadcrumbs(post, '/') %></nav>
-    <time datetime='<%= post.published_at %>'><%= post.published_at %></span>
-  </div>
-</header>
-
-<section class='journal-page-body'>
-  <%= body.html_safe %>
-</section>
-
-<footer class='journal-page-footer'>
-  <%= link_to 'Read more', show_journal_post_path(post.hex, post.slug), class: 'journal-permalink' %>
-
-  <% if @disqus_shortname %>
-    <%= link_to 'Show comments', '#', class: 'journal-show-comments' %>
-  <% end %>
-</footer>
+    <footer>
+      <%= link_to show_journal_post_path(post.hex, post.slug) do %>
+        <%= fa_icon("long-arrow-right") %>
+      <% end %>
+    </footer>
+  </section>
+</div>

@@ -3,10 +3,8 @@ require 'autoinc'
 class JournalPost
   include Ants::Content
   include Ants::SortedRelations
+  include Ants::Featurable
   include Mongoid::Autoinc
-
-  ## Attributes
-  field :published_at, type: DateTime, default: -> { DateTime.now }
 
   ## Autoinc
   field :int_id, type: Integer
@@ -17,12 +15,10 @@ class JournalPost
   sorted_relations_for :categories
 
   ## Scopes
-  default_scope -> { desc(:published_at) }
   scope :by_category, -> (id) { where(:category_ids.in => [id]) }
 
   ## Index
   index int_id: 1
-  index published_at: -1
 
   ## Helpers
   def hex

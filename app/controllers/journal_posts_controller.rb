@@ -2,6 +2,17 @@ class JournalPostsController < ApplicationController
   before_filter :set_all_posts, only: %w( index show )
   before_action :authenticate_admin_user!, only: %w( preview )
 
+  def index
+    @page = params[:page].try(:to_i) || 1
+    @perPage = 15
+
+    if @page == 1
+      @featured = JournalPost.not_hidden.published.featured
+    end
+
+    @posts = JournalPost.not_hidden.published.not_featured.page(@page).per(@perPage)
+  end
+
   def show
     @post = published_post_by_int_id
   end
@@ -12,9 +23,19 @@ class JournalPostsController < ApplicationController
   end
 
   def preview
-    @post  = post_by_int_id
-    @posts = JournalPost.not_hidden
+    @post = post_by_int_id
     render "journal_posts/show"
+  end
+
+  def category
+    @slug = params[:slug]
+    @page = params[:page].try(:to_i) || 1
+    @perPage = 15
+
+    category = JournalCategory.find(@slug)
+    @posts = category.posts.not_hidden.published.page(@page).per(@perPage)
+
+    render "journal_posts/index"
   end
 
   private
@@ -28,7 +49,7 @@ class JournalPostsController < ApplicationController
   end
 
   def published_post_by_int_id
-    JournalPost.not_hidden.find_by(int_id: int_id)
+    JournalPost.not_hidden.published.find_by(int_id: int_id)
   end
 
   def post_by_int_id

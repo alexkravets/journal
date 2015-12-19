@@ -1,5 +1,3 @@
-require 'autoinc'
-
 class JournalPost
   include Ants::Content
   include Ants::SortedRelations
@@ -20,7 +18,12 @@ class JournalPost
   ## Index
   index int_id: 1
 
+  ## Callbacks
+  after_validation :set_published_at_datetime
+
   ## Helpers
+  alias_attribute :_list_item_subtitle, :published_at
+
   def hex
     int_id.to_s(16)
   end
@@ -50,5 +53,11 @@ class JournalPost
       gsub("\n", "").
       gsub("\r", "")
     ActionController::Base.helpers.truncate(text, length: 260, omission: '...')
+  end
+
+  def set_published_at_datetime
+    if self.published_at.nil?
+      self.published_at = Time.zone.now
+    end
   end
 end

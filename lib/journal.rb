@@ -1,6 +1,7 @@
-require 'chr'
-require 'ants'
-require 'mongosteen'
+require "chr"
+require "ants"
+require "mongosteen"
+require "autoinc"
 
 module Journal
   require "constraints/posts"
@@ -8,7 +9,7 @@ module Journal
   require "constraints/categories"
 
   class Engine < ::Rails::Engine
-    require 'journal/engine'
-    require 'journal/routing'
+    require "journal/engine"
+    require "journal/routing"
   end
 end

@@ -1,26 +1,49 @@
+# @renderJournalPostItem = (item) ->
+#   item.$publishedAt =$ "<time datetime='#{ item.object.published_at }' class='journal-post-published-at'></aside>"
+#   item.$title.before(item.$publishedAt)
+#   published_at = getJournalPostPublishedAt(item.object)
+#   item.$publishedAt.html(published_at)
+
+#   if item.object.hidden
+#     item.$el.addClass('journal-post-hidden')
+#   else
+#     item.$el.removeClass('journal-post-hidden')
+
+
+# @getJournalPostPublishedAt = (post) ->
+#   today    = new Date()
+#   tzOffset = today.getTimezoneOffset() * -1
+
+#   m = moment(post.published_at).utcOffset(tzOffset)
+#   if m.isValid()
+#     format = 'YYYY/MM/DD' # else 'MMM D, YYYY hh:mm'
+#     published_at = m.format(format)
+
 class @JournalPosts extends AntsContent
-  constructor: (title="Posts", @apiPath="/admin") ->
+  constructor: (@title, apiPath="/admin") ->
     super("Post")
     # onItemRender: (item) ->
     #   renderJournalPostItem(item)
+
+    @menuTitle = @title
+    @menuIcon = "pencil"
 
     @_add_featured()
     @_add_published_at_input()
     @_add_categories_input()
 
-    @title = title
-    @menuTitle = title
-    @menuIcon = "pencil"
-
     @arrayStore = new RailsArrayStore({
       resource: "journal_post"
-      path: "#{ @apiPath }/journal_posts"
+      path: "#{ apiPath }/journal_posts"
       sortBy: "published_at"
       sortReverse: true
       searchable: true
     })
 
     @fullsizeView = true
+    @listTabs =
+      "Published": { not_hidden: true }
+      "Drafts": { hidden: true }
 
 # PRIVATE =====================================================================
 
@@ -35,6 +58,7 @@ class @JournalPosts extends AntsContent
       published_at:
         type: "datetime"
         label: "Published at"
+        disableClear: true
 
   _add_categories_input: ->
     @formSchema.settings.inputs['categories_panel'] =

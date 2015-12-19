@@ -6,15 +6,6 @@
 
 /* Tablet ----------------------------------------------------------------- */
 @media #{$tablet} {
-  .journal .list.list-aside .item:hover {
-    .item-title {
-      color : $positive-color;
-    }
-  }
-}
-
-/* Tablet ----------------------------------------------------------------- */
-@media #{$tablet} {
   .list.posts,
   .list.pages {
     width: initial;

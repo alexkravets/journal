@@ -1,29 +1,8 @@
-# @renderJournalPostItem = (item) ->
-#   item.$publishedAt =$ "<time datetime='#{ item.object.published_at }' class='journal-post-published-at'></aside>"
-#   item.$title.before(item.$publishedAt)
-#   published_at = getJournalPostPublishedAt(item.object)
-#   item.$publishedAt.html(published_at)
-
-#   if item.object.hidden
-#     item.$el.addClass('journal-post-hidden')
-#   else
-#     item.$el.removeClass('journal-post-hidden')
-
-
-# @getJournalPostPublishedAt = (post) ->
-#   today    = new Date()
-#   tzOffset = today.getTimezoneOffset() * -1
-
-#   m = moment(post.published_at).utcOffset(tzOffset)
-#   if m.isValid()
-#     format = 'YYYY/MM/DD' # else 'MMM D, YYYY hh:mm'
-#     published_at = m.format(format)
+@timezoneOffset = -> (new Date()).getTimezoneOffset() * -1
 
 class @JournalPosts extends AntsContent
   constructor: (@title, apiPath="/admin") ->
     super("Post")
-    # onItemRender: (item) ->
-    #   renderJournalPostItem(item)
 
     @menuTitle = @title
     @menuIcon = "pencil"
@@ -44,6 +23,12 @@ class @JournalPosts extends AntsContent
     @listTabs =
       "Published": { not_hidden: true }
       "Drafts": { hidden: true }
+
+    @onItemRender = (item) =>
+      @_render_list_item(item)
+
+    @onViewShow = (view) =>
+      @_toggle_draft_fields(view)
 
 # PRIVATE =====================================================================
 
@@ -88,3 +73,19 @@ class @JournalPosts extends AntsContent
       "/#{hex}/preview"
     else
       "/#{hex}"
+
+  _render_list_item: (item) ->
+    m = moment(item.object.published_at).utcOffset(timezoneOffset())
+    published_at = m.format("MM/DD/YYYY")
+    item.$subtitle.html(published_at)
+
+  _toggle_draft_fields: (view) ->
+    hide = view.object.hidden
+    $viewEl = view.$el
+    $hiddenInput = view.form.inputs.hidden.$input
+
+    $hiddenInput.on "change", (e) ->
+      hide = $(e.currentTarget).prop("checked")
+      $viewEl.toggleClass("view-post-draft", hide)
+
+    $viewEl.toggleClass("view-post-draft", hide)

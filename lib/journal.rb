@@ -1,7 +1,6 @@
 require "chr"
-require "ants"
+require "loft"
 require "mongosteen"
-require "autoinc"
 
 module Journal
   require "constraints/posts"

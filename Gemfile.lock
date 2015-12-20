@@ -1,11 +1,10 @@
 PATH
   remote: .
   specs:
-    journal (0.3.1)
-      ants (>= 0.2.0)
-      chr (>= 0.4.0)
-      mongoid-autoinc (>= 4.0.0)
-      mongosteen (>= 0.1.8)
+    journal (0.3.4)
+      chr (>= 0.5.4)
+      loft (>= 0.3.1)
+      mongosteen (>= 0.2.0)
 
 GEM
   remote: http://rubygems.org/
@@ -45,8 +44,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    ants (0.3.9)
+    ants (0.3.10)
       devise
+      meta-tags
       mongoid (>= 4.0)
       mongoid-slug (>= 4.0.0)
     arel (6.0.3)
@@ -56,11 +56,20 @@ GEM
       thor (~> 0.19)
     bson (4.0.0)
     builder (3.2.2)
-    chr (0.5.3)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+    carrierwave-mongoid (0.8.1)
+      carrierwave (>= 0.8.0, < 0.11.0)
+      mongoid (>= 3.0, < 6.0)
+      mongoid-grid_fs (>= 1.3, < 3.0)
+    chr (0.5.4)
       bourbon
       coffee-rails (>= 4.0)
       font-awesome-rails
-      formagic (>= 0.3.4)
+      formagic (>= 0.3.7)
       jquery-rails
       rails (~> 4.2.5)
       sass-rails
@@ -107,11 +116,23 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    loft (0.3.1)
+      ants (>= 0.3.10)
+      carrierwave-mongoid (>= 0.7.1)
+      chr (>= 0.5.4)
+      mini_magick (>= 4.1.0)
+      mongoid-autoinc (>= 4.0.0)
+      mongoid-grid_fs (>= 2.1.0)
+      mongoid_search (>= 0.3)
+      mongosteen (>= 0.1.8)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    meta-tags (2.1.0)
+      actionpack (>= 3.0.0)
     mime-types (2.99)
+    mini_magick (4.3.6)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     mongo (2.2.1)
@@ -126,6 +147,9 @@ GEM
     mongoid-compatibility (0.3.1)
       activesupport
       mongoid (>= 2.0)
+    mongoid-grid_fs (2.2.1)
+      mime-types (>= 1.0, < 3.0)
+      mongoid (>= 3.0, < 6.0)
     mongoid-history (0.5.0)
       activesupport
       easy_diff

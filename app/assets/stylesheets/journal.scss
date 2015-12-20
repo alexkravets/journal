@@ -1,5 +1,20 @@
+.posts.list .item-title {
+  font-size: .9em;
+  line-height: 1.5;
+}
+
 .posts.view-new {
   .input-_slug {
+    display: none;
+  }
+}
+
+.view-post-draft {
+  .input-hidden {
+    @include no-bottom-border;
+  }
+  .input-featured,
+  .input-published_at {
     display: none;
   }
 }
@@ -26,5 +41,18 @@
       margin: 0 auto;
       max-width: 44em;
     }
+  }
+
+  .view.pages,
+  .view.posts {
+    left: -9em;
+  }
+}
+
+/* Desktop ----------------------------------------------------------------- */
+@media #{$desktop} {
+  .view.pages,
+  .view.posts {
+    left: -10em;
   }
 }

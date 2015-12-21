@@ -17,7 +17,8 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_dependency("chr",  ">= 0.5.4")
+  s.add_dependency("chr", ">= 0.5.5")
+  s.add_dependency("ants", ">= 0.3.12")
   s.add_dependency("loft", ">= 0.3.1")
   s.add_dependency("mongosteen", ">= 0.2.0")
 

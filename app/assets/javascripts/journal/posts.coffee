@@ -1,7 +1,7 @@
 @timezoneOffset = -> (new Date()).getTimezoneOffset() * -1
 
 class @JournalPosts extends AntsContent
-  constructor: (@title, apiPath="/admin") ->
+  constructor: (@title, @apiPath="/admin") ->
     super("Post")
 
     @menuTitle = @title
@@ -13,7 +13,7 @@ class @JournalPosts extends AntsContent
 
     @arrayStore = new RailsArrayStore({
       resource: "journal_post"
-      path: "#{ apiPath }/journal_posts"
+      path: "#{ @apiPath }/journal_posts"
       sortBy: "published_at"
       sortReverse: true
       searchable: true
@@ -26,9 +26,6 @@ class @JournalPosts extends AntsContent
 
     @onItemRender = (item) =>
       @_render_list_item(item)
-
-    @onViewShow = (view) =>
-      @_toggle_draft_fields(view)
 
 # PRIVATE =====================================================================
 
@@ -78,14 +75,3 @@ class @JournalPosts extends AntsContent
     m = moment(item.object.published_at).utcOffset(timezoneOffset())
     published_at = m.format("MM/DD/YYYY")
     item.$subtitle.html(published_at)
-
-  _toggle_draft_fields: (view) ->
-    hide = view.object.hidden
-    $viewEl = view.$el
-    $hiddenInput = view.form.inputs.hidden.$input
-
-    $hiddenInput.on "change", (e) ->
-      hide = $(e.currentTarget).prop("checked")
-      $viewEl.toggleClass("view-post-draft", hide)
-
-    $viewEl.toggleClass("view-post-draft", hide)

@@ -7,14 +7,23 @@
 
 Add to ```Gemfile```:
 
-    gem 'journal', github: 'alexkravets/journal'
+    gem 'journal-chr'
 
 Add tape resource controllers to ```routes.rb```, `admin` scope:
 
 ```ruby
-# journal
-resources :journal_posts, controller: 'journal_posts'
-resources :journal_pages, controller: 'journal_pages'
+  mount_journal_posts_crud
+  mount_journal_pages_crud
+  mount_journal_categories_crud
+```
+
+Add tape resource controllers to ```routes.rb```, `website` scope:
+
+```ruby
+  root 'journal_posts#index'
+  mount_journal_categories
+  mount_journal_pages
+  mount_journal_posts
 ```
 
 Add to ```admin.scss``` and ```admin.coffee```:

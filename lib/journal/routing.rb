@@ -33,7 +33,10 @@ module ActionDispatch::Routing
     end
 
     def mount_journal_categories
-      get '/:slug' => 'journal_posts#category',
+      get '/:slug/preview' => 'journal_categories#preview',
+          as: :preview_journal_category,
+          constraints: ::Constraints::JournalCategories
+      get '/:slug' => 'journal_categories#show',
           as: :show_journal_category,
           constraints: ::Constraints::JournalCategories
     end

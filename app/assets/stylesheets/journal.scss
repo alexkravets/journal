@@ -19,6 +19,17 @@
   }
 }
 
+.categories .content_panel {
+  .input-markdown {
+    margin-top: -1px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .input-markdown .label {
+    display: none;
+  }
+}
+
 /* Tablet ----------------------------------------------------------------- */
 @media #{$tablet} {
   .list.posts,

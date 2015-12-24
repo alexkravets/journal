@@ -1,0 +1,4 @@
+<% content_meta_tags @category %>
+<%= render partial: 'aside' %>
+<%= render partial: 'journal_posts/post', collection: @posts %>
+<%= paginate @posts %>

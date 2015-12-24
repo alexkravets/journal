@@ -47,9 +47,9 @@ pages:   new JournalPages()
 ## Journal family
 
 - [Character](https://github.com/slate-studio/chr): Powerful javascript CMS for apps
-- [Mongosteen](https://github.com/slate-studio/mongosteen): An easy way to add restful actions for mongoid models
-- [Inverter](https://github.com/slate-studio/inverter): An easy way to connect Rails templates content to CMS
+- [Mongosteen](https://github.com/slate-studio/mongosteen): Add CRUD actions for Mongoid models with one line
 - [Loft](https://github.com/slate-studio/loft): Media assets manager for Character CMS
+- [Inverter](https://github.com/slate-studio/inverter): An easy way to connect Rails templates content to CMS
 
 
 ## License

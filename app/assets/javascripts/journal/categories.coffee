@@ -1,6 +1,9 @@
-class @JournalCategories
-  constructor: (@title="Categories", @apiPath="/admin") ->
-    @showWithParent = true
+class @JournalCategories extends AntsContent
+  constructor: (title="Categories", @apiPath="/admin") ->
+    super("Category")
+
+    @title = title
+    #@showWithParent = true
 
     @arrayStore = new RailsArrayStore({
       resource: "journal_category"
@@ -8,12 +11,14 @@ class @JournalCategories
       reorderable: { positionFieldName: "_position" }
     })
 
-    @formSchema =
-      generic:
-        type: "group"
-        groupClass: "group-panel"
-        inputs:
-          title:
-            type: "string"
-            placeholder: "Category Title"
-          slug: new AntsSlugInput("#{location.origin}/")
+# PRIVATE =====================================================================
+
+  _path: (object) ->
+    "#{location.origin}/"
+
+  _preview_url: (object) ->
+    slug = object.slug
+    if object.hidden
+      "/#{slug}/preview"
+    else
+      "/#{slug}"

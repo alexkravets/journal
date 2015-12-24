@@ -27,17 +27,6 @@ class JournalPostsController < ApplicationController
     render "journal_posts/show"
   end
 
-  def category
-    @slug = params[:slug]
-    @page = params[:page].try(:to_i) || 1
-    @perPage = 15
-
-    category = JournalCategory.find(@slug)
-    @posts = category.posts.not_hidden.published.page(@page).per(@perPage)
-
-    render "journal_posts/index"
-  end
-
   private
 
   def set_all_posts

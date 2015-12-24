@@ -3,7 +3,6 @@ class @JournalCategories extends AntsContent
     super("Category")
 
     @title = title
-    #@showWithParent = true
 
     @arrayStore = new RailsArrayStore({
       resource: "journal_category"

@@ -1,5 +1,4 @@
 class JournalPostsController < ApplicationController
-  before_filter :set_all_posts, only: %w( index show )
   before_action :authenticate_admin_user!, only: %w( preview )
 
   def index
@@ -28,10 +27,6 @@ class JournalPostsController < ApplicationController
   end
 
   private
-
-  def set_all_posts
-    @posts = JournalPost.not_hidden
-  end
 
   def int_id
     params[:hex].to_i(16)

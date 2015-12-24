@@ -1,5 +1,6 @@
 <% content_meta_tags @category %>
+<% content_for :extra_body_classes do %>category-<%= @category.int_id %><% end %>
 <%= render partial: 'aside' %>
-<%= render partial: 'header' %>
+<%= render partial: 'content' %>
 <%= render partial: 'journal_posts/post', collection: @posts %>
 <%= paginate @posts %>

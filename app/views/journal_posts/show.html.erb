@@ -1,5 +1,5 @@
 <% content_meta_tags @post %>
-
+<% content_for :extra_body_classes do %>post-<%= @post.hex %><% end %>
 <%= render partial: 'aside_show' %>
 <article class='journal-page'>
   <header class='journal-page-header'>

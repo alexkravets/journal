@@ -14,16 +14,17 @@ class JournalPostsController < ApplicationController
 
   def show
     @post = published_post_by_int_id
+    render @post.template_name || "show"
+  end
+
+  def preview
+    @post = post_by_int_id
+    render @post.template_name || "show"
   end
 
   def redirect
     @post = published_post_by_int_id
     redirect_to show_journal_post_path(@post.hex, @post.slug)
-  end
-
-  def preview
-    @post = post_by_int_id
-    render "journal_posts/show"
   end
 
   private

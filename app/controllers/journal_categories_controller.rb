@@ -4,12 +4,13 @@ class JournalCategoriesController < ApplicationController
   def show
     @category = JournalCategory.not_hidden.find(@slug)
     @posts = posts
+    render @category.template_name || "show"
   end
 
   def preview
     @category = JournalCategory.find(@slug)
     @posts = posts
-    render "show"
+    render @category.template_name || "show"
   end
 
   private

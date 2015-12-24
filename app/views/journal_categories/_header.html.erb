@@ -1,0 +1,5 @@
+<% if @category.body_html.presence %>
+  <header class="journal-category journal-category-<%= @category.slug %>">
+    <%= @category.body_html.html_safe %>
+  </header>
+<% end %>

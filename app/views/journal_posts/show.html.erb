@@ -1,5 +1,6 @@
 <% content_meta_tags @post %>
 
+<%= render partial: 'aside_show' %>
 <article class='journal-page'>
   <header class='journal-page-header'>
     <h1>
@@ -14,20 +15,4 @@
   <section class='journal-page-body'>
     <%= @post.body_html.html_safe %>
   </section>
-
-  <!--
-  <footer class='journal-page-footer'>
-    <% if @disqus_shortname %>
-      <%= link_to 'Show comments', '#', class: 'journal-show-comments' %>
-    <% end %>
-  </footer>
-  -->
 </article>
-
-<!--
-<% if @disqus_shortname %>
-  <div class='journal-comments' style='display:none;'>
-    <div id='disqus_thread' class='journal-disqus' data-shortname='<%= @disqus_shortname %>'></div>
-  </div>
-<% end %>
--->

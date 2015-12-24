@@ -3,10 +3,11 @@ class JournalPagesController < ApplicationController
 
   def show
     @page = JournalPage.not_hidden.find(params[:slug])
+    render @page.template_name || "show"
   end
 
   def preview
     @page = JournalPage.find(params[:slug])
-    render "journal_pages/show"
+    render @page.template_name || "show"
   end
 end

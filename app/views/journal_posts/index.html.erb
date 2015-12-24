@@ -1,3 +1,4 @@
+<%= render partial: 'aside_index' %>
 <% if @featured && @featured.size > 0 %>
   <section class='journal-featured-posts'>
     <%= render partial: 'post', collection: @featured %>
